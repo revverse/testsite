@@ -7,7 +7,7 @@ branches:
     - master
 before_install:
   - docker build -t reverse/testsite testsite/
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS -e $DOCKER_EMAIL
+  - docker login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWD $REGISTRY_HOST
   - docker push reverse/testsite
 script:
   - if [ $TRAVIS_BRANCH = "develop" ]; then echo "DEV deploy"; fi
