@@ -6,7 +6,7 @@ branches:
     - develop
     - master
 before_script:
-  - version="$(awk '$2 == "VERSION" { print $3; exit }' Dockerfile)"
+  - version="$(awk '$2 == "VERSION" { print $3; exit }' testsite/Dockerfile)"
 
 before_install:
   - docker build -t "registry.reverse.kiev.ua/reverse/testsite:${version}" testsite/
