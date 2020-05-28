@@ -5,10 +5,13 @@ branches:
   only:
     - develop
     - master
+before_script:
+  - version="$(awk '$2 == "VERSION" { print $3; exit }' Dockerfile)"
+
 before_install:
-  - docker build -t reverse/testsite testsite/
+  - docker build -t "registry.reverse.kiev.ua/reverse/testsite:${version}" testsite/
   - docker login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWD $REGISTRY_HOST
-  - docker push reverse/testsite
+  - docker push "registry.reverse.kiev.ua/reverse/testsite:${version}"
 script:
   - if [ $TRAVIS_BRANCH = "develop" ]; then echo "DEV deploy"; fi
   - if [ $TRAVIS_BRANCH = "master" ]; then docker ps -a; fi

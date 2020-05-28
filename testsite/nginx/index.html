@@ -1,11 +1,32 @@
  <!DOCTYPE html>
 <html>
 <head>
-<title>Hello World</title>
+
+<script>
+
+var req = new XMLHttpRequest();
+req.open('GET', document.location, false);
+req.send(null);
+var headers = req.getAllResponseHeaders().split("\n")
+     .map(x=>x.split(/: */,2))
+     .filter(x=>x[0])
+     .reduce((ac, x)=>{ac[x[0]] = x[1];return ac;}, {});
+var path = document.URL
+if ( path.includes('auth')) {
+var username = headers.authuser;
+window.document.title = 'Hello World ' + username;
+} else { 
+var username = '';
+};
+</script>
+
+<title>Hello World </title>
 </head>
 <body>
 
-<h1>Hello World</h1>
+<h1>Hello World       <script type="text/javascript">
+        document.write(username)
+ </script></h1>
 
 </body>
 </html> 
